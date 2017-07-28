@@ -22,12 +22,12 @@ class MrpBomCostWizard(models.TransientModel):
     @api.multi
     def print_report(self):
 
-        return self.env['report'].get_action(self, 'bom_cost_qty.mrp_bom_cost', data={'qty' : self.qty,
+        return self.env['report'].get_action(self, 'mrp_bom_cost', data={'qty' : self.qty,
                                'ids' : self.bom.ids})
 
 
 class MrpBomCost(models.AbstractModel):
-    _name = 'report.bom_cost_qty.mrp_bom_cost'
+    _name = 'report.mrp_bom_cost'
 
     @api.multi
     def get_lines(self, boms, qty):
