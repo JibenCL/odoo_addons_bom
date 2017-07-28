@@ -13,7 +13,7 @@ _logger = logging.getLogger(__name__)
 
 
 class MrpBomCostWizard(models.TransientModel):
-    _name = "wizard.mrp_bom_cost"
+    _name = "bom_cost_qty.wizard.mrp_bom_cost"
     _description = "Mrp Bom Cost Wizard"
 
     bom = fields.Many2one('mrp.bom', string='Bom', required=True, default=lambda self : self.env.context.get('active_id', False))
