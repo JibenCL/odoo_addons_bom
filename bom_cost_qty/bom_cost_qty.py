@@ -17,7 +17,7 @@ class MrpBomCostWizard(models.TransientModel):
     _description = "Mrp Bom Cost Wizard"
 
     bom = fields.Many2one('mrp.bom', string='Bom', required=True, default=lambda self : self.env.context.get('active_id', False))
-    qty = fields.Integer('Quantity of finished product')
+    qty = fields.Float('Quantity of finished product')
 
     @api.multi
     def print_report(self):
