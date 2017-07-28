@@ -34,7 +34,7 @@ class MrpBomCost(models.AbstractModel):
 
         product_lines = []
         for bom in boms:
-        	ration = qty and qty / bom.product_qty or 1
+            ratio = qty and qty / bom.product_qty or 1
             products = bom.product_id
             if not products:
                 products = bom.product_tmpl_id.product_variant_ids
