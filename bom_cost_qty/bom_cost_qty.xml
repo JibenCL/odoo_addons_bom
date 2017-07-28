@@ -32,7 +32,7 @@
             <field name="res_model">bom_cost_qty.wizard.mrp_bom_cost</field>
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
-            <field name="view_id" ref="wizard.mrp_bom_cost_form"/>
+            <field name="view_id" ref="bom_cost_qty.wizard.mrp_bom_cost_form"/>
             <field name="target">new</field>
         </record>
 
