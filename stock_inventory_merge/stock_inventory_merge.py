@@ -27,7 +27,8 @@ class StockInventoryLine(models.Model):
             # dom_keys = set(leaf[0] for leaf in dom)
             # merge_dom_keys = {'product_id', 'inventory_id.state', 'location_id', 'partner_id', 'package_id', 'prod_lot_id'}
             # if not (merge_dom_keys ^ dom_keys) : #if symetric difference is null
-            return []
+            args += [('inventory_id.state', '=', 'cancel')]
+            return res = super(StockInventoryLine, self).search(args, offset=offset, limit=limit, order=order, count=count)
         return res
 
 class StockInventory(models.Model):
