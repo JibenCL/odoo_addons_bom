@@ -41,7 +41,7 @@ class StockInventory(models.Model):
             raise UserError(_("You should choose multiple inventories to merge"))
         if len(self.mapped("location_id")) != 1 :
             raise UserError(_("You cannot merge inventories with different locations")) 
-        if not all(self, lambda x : x.state == "confirm" and x.is_to_be_merged) :
+        if not all((x.state == "confirm" and x.is_to_be_merged) for x in self) :
             raise UserError(_("You cannot merge inventories that are not in state progress or not marked as to be merged"))
         base_inventory = False
         for inventory in self :
