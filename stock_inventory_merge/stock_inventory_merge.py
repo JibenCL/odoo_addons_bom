@@ -19,8 +19,8 @@ class StockInventoryLine(models.Model):
         return super(StockInventoryLine, self.with_context(inventory_line_creation = True)).create(values)
 
     @api.model
-    def search(self, dom, offset=0, limit=None, order=None, count=False):
-        res = super(StockInventoryLine, self).search(dom, offset, limit, order, count)
+    def search(self, args, offset=0, limit=None, order=None, count=False):
+        res = super(StockInventoryLine, self).search(args, offset=offset, limit=limit, order=order, count=count)
 
         if res and res[0].inventory_id.is_to_be_merged and self.env.context.get("inventory_line_creation", False) : 
         #We force a false search result in case we're looking to forbid to have the same product in two different inventories
