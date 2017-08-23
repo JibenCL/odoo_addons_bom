@@ -57,10 +57,11 @@ class StockInventory(models.Model):
                         line.inventory_id = base_inventory.id
         for inventory in self.browse(self.ids) : #refresh
             if inventory.id != base_inventory.id :
+                inventory.name += ' (merge part)'
                 inventory.action_cancel_inventory()
             else :
                 inventory.is_to_be_merged = False
-                inventory.name += ' (merged)'
+                inventory.name += ' (merged result)'
 
 
 
