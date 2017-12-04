@@ -30,10 +30,10 @@ import openerp.tools.config as config
 import openerp.osv.osv
 import openerp.exceptions
 from openerp.http import request
-from raven import Client
-from raven.handlers.logging import SentryHandler
-from raven.middleware import Sentry
-from raven.conf import setup_logging, EXCLUDE_LOGGER_DEFAULTS
+# from raven import Client
+# from raven.handlers.logging import SentryHandler
+# from raven.middleware import Sentry
+# from raven.conf import setup_logging, EXCLUDE_LOGGER_DEFAULTS
 
 
 _logger = logging.getLogger(__name__)
