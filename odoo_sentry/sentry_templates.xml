@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+    	<template id="assets_common" inherit_id="web.assets_common" name="Rating common assets">
+            <xpath expr='.' position="inside">
+                <script src="https://cdn.ravenjs.com/3.20.1/raven.min.js" crossorigin="anonymous"></script>
+                <script src="/odoo_sentry/static/src/js/sentry.js"/>
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

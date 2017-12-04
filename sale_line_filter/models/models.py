@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
+import logging
+from openerp import SUPERUSER_ID
 
+
+_logger = logging.getLogger(__name__)
 # class sale_line_filter(models.Model):
 #     _name = 'sale_line_filter.sale_line_filter'
 
@@ -31,3 +35,16 @@ class SaleOrder(models.Model) :
         default.setdefault('partner_shipping_id', 37921)    
         default.setdefault('partner_invoice_id', 37921)    
         return super(SaleOrder, self).copy(default)
+
+    to_invoice = fields.Boolean("To invoice (fix)", default=True)
+
+    @api.model
+    def check_to_invoice(self) :
+        res = self.search([('state', 'in', ('sale', 'done')), ('to_invoice', '=', True)], limit=500)
+        _logger.debug("NB SO TO COMPUTE")
+        _logger.debug(len(res))
+        for so in res :
+            
+            if len(so.invoice_ids) :
+                _logger.debug(so)
+                so.to_invoice = False
