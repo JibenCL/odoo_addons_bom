@@ -1,0 +1,73 @@
+<openerp>
+  <data>
+
+    <record model="ir.ui.view" id="product_filter_order_line">
+             <field name="name">product_filter.sale.order</field>
+             <field name="model">sale.order</field>
+             <field name="inherit_id" ref="fonteyne_migration_correction.view_sale_order_form" />
+             <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']//form//field[@name='product_id']" position="after">
+                    <field name="product_filter_regex"/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']//form//field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[('default_code', 'ilike', product_filter_regex)]</attribute>
+                </xpath>
+             </field>
+        </record>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="sale_line_filter.list">
+      <field name="name">sale_line_filter list</field>
+      <field name="model">sale_line_filter.sale_line_filter</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="sale_line_filter.action_window">
+      <field name="name">sale_line_filter window</field>
+      <field name="res_model">sale_line_filter.sale_line_filter</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="sale_line_filter.action_server">
+      <field name="name">sale_line_filter server</field>
+      <field name="model_id" ref="model_sale_line_filter_sale_line_filter"/>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="sale_line_filter" id="sale_line_filter.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="sale_line_filter.menu_1" parent="sale_line_filter.menu_root"/>
+    <menuitem name="Menu 2" id="sale_line_filter.menu_2" parent="sale_line_filter.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="sale_line_filter.menu_1_list" parent="sale_line_filter.menu_1"
+              action="sale_line_filter.action_window"/>
+    <menuitem name="Server to list" id="sale_line_filter" parent="sale_line_filter.menu_2"
+              action="sale_line_filter.action_server"/>
+    -->
+  </data>
+</openerp>
