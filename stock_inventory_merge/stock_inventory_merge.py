@@ -6,6 +6,9 @@ from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
 from datetime import datetime, time, timedelta, date
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT, DEFAULT_SERVER_DATE_FORMAT
+
+from openerp.osv import osv
+
 import logging
 
 
@@ -62,6 +65,32 @@ class StockInventory(models.Model):
             else :
                 inventory.is_to_be_merged = False
                 inventory.name += ' (merged result)'
+
+
+class stock_pack_operation(osv.osv):
+    _inherit = "stock.pack.operation"
+
+    def on_change_tests(self, cr, uid, ids, product_id, product_uom_id, product_qty, context=None):
+        res = super(stock_pack_operation, self).on_change_tests(cr, uid, ids, product_id, product_uom_id, product_qty, context)
+        if product_qty > 1000000 and 'warning' not in res:
+            res['warning'] = {
+                        'title': _('Warning: wrong quantity!'),
+                        'message': _('The chosen quantity for product %s is way too much. It is probably a mistake.') % (product.name)
+                    }
+        return res
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    @api.model
+    def clean_empty_pickings(self) :
+        _logger.debug("SEARCHING PICKINGS")
+        pickings = self.search([('state', 'in', ['assigned']), ('pack_operation_product_ids', '=', False), ('move_lines_related', '=', False)])
+        for picking in pickings :
+            _logger.debug(picking)
+            picking.unlink()
+            self.env.cr.commit()
+
 
 
 

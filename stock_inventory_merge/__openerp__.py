@@ -11,6 +11,7 @@
     'depends': ['stock'],
     'data': [
         'stock_inventory_merge.xml',
+        'stock_inventory_merge_data.xml',
         ],
     'demo': [],
     'qweb': [],
