@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+
+from openerp import models, fields, api
+import logging
+from openerp import SUPERUSER_ID
+
+
+_logger = logging.getLogger(__name__)
+# class sale_line_filter(models.Model):
+
 class SaleOrder(models.Model) :
     _inherit = 'sale.order'
     _name = 'sale.order'

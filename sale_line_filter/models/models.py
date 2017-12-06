@@ -18,33 +18,18 @@ _logger = logging.getLogger(__name__)
 #     def _value_pc(self):
 #         self.value2 = float(self.value) / 100
 
+class ProductTemplate(models.Model) :
+    _inherit = 'product.template'
+#TODO : create product.tag model that inherits from another tag model
+    tag_ids = fields.Many2many('crm.lead.tag', 'product_template_crm_tag', string='Tags', help="Optional tags you may want to assign for custom reporting")
+
+    @api.model
+    def force_tags(self) :
+        products = self.search([('default_code', 'ilike', 'EVENTS')])
+        products.tag_ids = [(4,9, 0)]
+
 class SaleOrderLine(models.Model) :
     _inherit = 'sale.order.line'
 
-    product_filter_regex = fields.Char("Filtre référence interne", default="EVENTS")
+    product_filter_regex = fields.Char("Filtre sur tags", default="EVENTS")
 
-class SaleOrder(models.Model) :
-    _inherit = 'sale.order'
-    _name = 'sale.order'
-
-    @api.one
-    def copy(self, default=None):
-        default = dict(default or {})
-        default.setdefault('message_follower_ids', False)
-        default.setdefault('partner_id', 37921)    
-        default.setdefault('partner_shipping_id', 37921)    
-        default.setdefault('partner_invoice_id', 37921)    
-        return super(SaleOrder, self).copy(default)
-
-    to_invoice = fields.Boolean("To invoice (fix)", default=True)
-
-    @api.model
-    def check_to_invoice(self) :
-        res = self.search([('state', 'in', ('sale', 'done')), ('to_invoice', '=', True)], limit=500)
-        _logger.debug("NB SO TO COMPUTE")
-        _logger.debug(len(res))
-        for so in res :
-            
-            if len(so.invoice_ids) :
-                _logger.debug(so)
-                so.to_invoice = False
