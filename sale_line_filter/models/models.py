@@ -26,7 +26,8 @@ class ProductTemplate(models.Model) :
     @api.model
     def force_tags(self) :
         products = self.search([('default_code', 'ilike', 'EVENTS')])
-        products.tag_ids = [(4,9, 0)]
+        _logger.debug(products)
+        products.write({'tag_ids' : [(4,9, 0)]})
 
 class SaleOrderLine(models.Model) :
     _inherit = 'sale.order.line'
