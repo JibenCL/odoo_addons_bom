@@ -25,7 +25,7 @@ class SaleOrder(models.Model) :
 
     @api.model
     def check_to_invoice(self) :
-        res = self.search([('state', 'in', ('sale', 'done')), ('to_invoice', '=', True)], limit=800, order="requested_date asc")
+        res = self.search([('state', 'in', ('sale', 'done')), ('to_invoice', '=', True)], limit=2000, order="requested_date asc")
         _logger.debug("NB SO TO COMPUTE")
         _logger.debug(len(res))
         for so in res :
