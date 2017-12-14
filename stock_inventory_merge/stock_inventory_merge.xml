@@ -14,5 +14,19 @@
         </record>
 
 
+
+            <record model="ir.ui.view" id="stock_picking_form_onchange_qty">
+             <field name="name">stock_picking_form_onchange_qty</field>
+             <field name="model">stock.picking</field>
+             <field name="inherit_id" ref="stock_barcode.stock_picking_view_form_inherit_stock_barcode" />
+             <field name="arch" type="xml">
+                
+                <xpath expr="//field[@name='pack_operation_product_ids']//kanban//field[@name='qty_done']" position="attributes">
+                    <attribute name="on_change">product_id_change(product_id, product_uom_id, qty_done)</attribute>
+                </xpath>
+             </field>
+        </record>
+
+
     </data>
 </openerp>
