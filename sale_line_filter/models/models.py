@@ -28,9 +28,16 @@ class ProductTemplate(models.Model) :
         products = self.search([('default_code', 'ilike', 'EVENTS')])
         _logger.debug(products)
         products.write({'tag_ids' : [(4,9, 0)]})
+        products = self.search([('default_code', 'ilike', 'ABELAG')])
+        products.write({'tag_ids' : [(4,12, 0)]})
 
-class SaleOrderLine(models.Model) :
-    _inherit = 'sale.order.line'
+# class SaleOrderLine(models.Model) :
+#     _inherit = 'sale.order.line'
+
+#     product_filter_regex = fields.Char("Filtre sur tags", default="EVENTS")
+
+
+class SaleOrder(models.Model) :
+    _inherit = 'sale.order'
 
     product_filter_regex = fields.Char("Filtre sur tags", default="EVENTS")
-
